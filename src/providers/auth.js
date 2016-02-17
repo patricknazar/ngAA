@@ -74,7 +74,7 @@
                 };
 
                 //TODO refactor
-                $auth._onStateChange = function(event, toState, toParams, fromState, fromParams) {
+                $auth._onStateChange = function(event, toState, toParams, fromState, fromParams, eventOptions) {
                     // If there are permits defined in toState 
                     // then prevent default and attempt to authorize
                     var permits = ngAAUtils.getStatePermits(toState);
@@ -127,12 +127,11 @@
                                         toParams
                                     );
 
+                                angular.extend(eventOptions, {notify: false});
                                 $state
                                     .go(
                                         toState.name,
-                                        toParams, {
-                                            notify: false
-                                        })
+                                        toParams, eventOptions)
                                     .then(function() {
                                         $rootScope
                                             .$broadcast(
@@ -140,7 +139,8 @@
                                                 toState,
                                                 toParams,
                                                 fromState,
-                                                fromParams
+                                                fromParams,
+                                                eventOptions
                                             );
                                     });
                             }

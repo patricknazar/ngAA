@@ -36,7 +36,7 @@
     "dependencies": {
         "ngstorage": "~0.3.0",
         "angular-jwt": "~0.0.6",
-        "angular-ui-router": "~0.2.15",
+        "angular-ui-router": "~0.2.18",
         "angular": "~1.4.1"
     },
     "devDependencies": {
