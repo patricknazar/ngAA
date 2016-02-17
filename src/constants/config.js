@@ -32,6 +32,8 @@
             //to signin user
             signinRoute: '/signin',
 
+            userProfileRoute: 'auth/user',
+
             //template to be used for signin
             signinTemplateUrl: 'views/signin.html',
 

@@ -16,7 +16,7 @@
 
 /**
  * DRY authentication and authorization for angular and ui-router
- * @version v0.2.6 - Wed Feb 17 2016 10:32:31
+ * @version v0.2.6 - Wed Feb 17 2016 14:05:41
  * @link https://github.com/lykmapipo/ngAA
  * @authors lykmapipo <lallyelias87@gmail.com>
  * @license MIT License, http://www.opensource.org/licenses/MIT
@@ -147,6 +147,8 @@
             //to signin user
             signinRoute: '/signin',
 
+            userProfileRoute: 'auth/user',
+
             //template to be used for signin
             signinTemplateUrl: 'views/signin.html',
 
@@ -241,6 +243,10 @@
 
                 $auth.getProfile = function() {
                     return ngAAUser.getProfile();
+                };
+
+                $auth.refreshProfile = function() {
+                    return ngAAUser.refreshProfile();
                 };
 
 
@@ -633,6 +639,19 @@
                 deferred.resolve(profile);
 
                 return deferred.promise;
+            };
+
+            // refresh profile
+            $user.refreshProfile = function() {
+                return $http
+                    .get(ngAAConfig.userProfileRoute)
+                    .then(function(response) {
+
+                        //store user profile
+                        $user.setProfile(response);
+
+                        return response;
+                    });
             };
 
             //check if current 

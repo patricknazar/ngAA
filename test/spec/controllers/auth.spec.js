@@ -112,4 +112,5 @@ describe('ngAA:Controller:AuthCtrl', function() {
         expect(ngAAUser.isAuthenticatedSync()).to.be.true;
     }));
 
+
 });

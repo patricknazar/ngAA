@@ -60,6 +60,10 @@
                     return ngAAUser.getProfile();
                 };
 
+                $auth.refreshProfile = function() {
+                    return ngAAUser.refreshProfile();
+                };
+
 
                 $auth.hasPermission = function(permission) {
                     return ngAAUser.hasPermission(permission);

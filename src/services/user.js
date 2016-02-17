@@ -60,6 +60,19 @@
                 return deferred.promise;
             };
 
+            // refresh profile
+            $user.refreshProfile = function() {
+                return $http
+                    .get(ngAAConfig.userProfileRoute)
+                    .then(function(response) {
+
+                        //store user profile
+                        $user.setProfile(response);
+
+                        return response;
+                    });
+            };
+
             //check if current 
             //user is authenticated
             $user.isAuthenticated = function() {
