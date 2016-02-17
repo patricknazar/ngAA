@@ -61,7 +61,9 @@
                 };
 
                 $auth.refreshProfile = function() {
-                    return ngAAUser.refreshProfile();
+                    return ngAAUser.refreshProfile().then(function(response) {
+                        $rootScope.$broadcast('profileRefreshed', response);
+                    });
                 };
 
 
@@ -88,6 +90,7 @@
                         toState.data ? toState.data.authenticated : undefined;
 
 
+
                     //if there are permits
                     //defined and state is not signinState
                     //prevent default state change
@@ -96,6 +99,9 @@
                     var shouldCheckPermits =
                         permits &&
                         toState.name !== ngAAConfig.signinState;
+
+                    // we want same options as triggered, but without events to be triggered again
+                    angular.extend(eventOptions, {notify: false});
 
                     //check for authenticity only
                     if (shouldCheckAuthenticity && !shouldCheckPermits) {
@@ -131,7 +137,7 @@
                                         toParams
                                     );
 
-                                angular.extend(eventOptions, {notify: false});
+                                
                                 $state
                                     .go(
                                         toState.name,
@@ -214,9 +220,7 @@
                                                 $state
                                                     .go(
                                                         toState.name,
-                                                        toParams, {
-                                                            notify: false
-                                                        })
+                                                        toParams, eventOptions)
                                                     .then(function() {
                                                         $rootScope
                                                             .$broadcast(
