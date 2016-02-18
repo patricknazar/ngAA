@@ -16,7 +16,7 @@
 
 /**
  * DRY authentication and authorization for angular and ui-router
- * @version v0.2.6 - Wed Feb 17 2016 16:14:29
+ * @version v0.2.6 - Thu Feb 18 2016 12:53:18
  * @link https://github.com/lykmapipo/ngAA
  * @authors lykmapipo <lallyelias87@gmail.com>
  * @license MIT License, http://www.opensource.org/licenses/MIT
@@ -273,7 +273,7 @@
                     //grab authenticated data from state
                     var shouldCheckAuthenticity =
                         toState.data ? toState.data.authenticated : undefined;
-
+                    console.log(eventOptions);
 
 
                     //if there are permits
@@ -284,9 +284,6 @@
                     var shouldCheckPermits =
                         permits &&
                         toState.name !== ngAAConfig.signinState;
-
-                    // we want same options as triggered, but without events to be triggered again
-                    angular.extend(eventOptions, {notify: false});
 
                     //check for authenticity only
                     if (shouldCheckAuthenticity && !shouldCheckPermits) {
@@ -326,7 +323,7 @@
                                 $state
                                     .go(
                                         toState.name,
-                                        toParams, eventOptions)
+                                        toParams, {notify: false})
                                     .then(function() {
                                         $rootScope
                                             .$broadcast(
@@ -334,8 +331,7 @@
                                                 toState,
                                                 toParams,
                                                 fromState,
-                                                fromParams,
-                                                eventOptions
+                                                fromParams
                                             );
                                     });
                             }
@@ -405,7 +401,7 @@
                                                 $state
                                                     .go(
                                                         toState.name,
-                                                        toParams, eventOptions)
+                                                        toParams, {notify: false, reload: eventOptions.reload})
                                                     .then(function() {
                                                         $rootScope
                                                             .$broadcast(

@@ -90,7 +90,6 @@
                         toState.data ? toState.data.authenticated : undefined;
 
 
-
                     //if there are permits
                     //defined and state is not signinState
                     //prevent default state change
@@ -99,9 +98,6 @@
                     var shouldCheckPermits =
                         permits &&
                         toState.name !== ngAAConfig.signinState;
-
-                    // we want same options as triggered, but without events to be triggered again
-                    angular.extend(eventOptions, {notify: false});
 
                     //check for authenticity only
                     if (shouldCheckAuthenticity && !shouldCheckPermits) {
@@ -141,7 +137,7 @@
                                 $state
                                     .go(
                                         toState.name,
-                                        toParams, eventOptions)
+                                        toParams, {notify: false})
                                     .then(function() {
                                         $rootScope
                                             .$broadcast(
@@ -149,8 +145,7 @@
                                                 toState,
                                                 toParams,
                                                 fromState,
-                                                fromParams,
-                                                eventOptions
+                                                fromParams
                                             );
                                     });
                             }
@@ -220,7 +215,7 @@
                                                 $state
                                                     .go(
                                                         toState.name,
-                                                        toParams, eventOptions)
+                                                        toParams, {notify: false, reload: eventOptions.reload})
                                                     .then(function() {
                                                         $rootScope
                                                             .$broadcast(
