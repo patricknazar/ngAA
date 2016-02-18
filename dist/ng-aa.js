@@ -16,7 +16,7 @@
 
 /**
  * DRY authentication and authorization for angular and ui-router
- * @version v0.2.6 - Thu Feb 18 2016 12:53:18
+ * @version v0.2.8 - Thu Feb 18 2016 15:01:34
  * @link https://github.com/lykmapipo/ngAA
  * @authors lykmapipo <lallyelias87@gmail.com>
  * @license MIT License, http://www.opensource.org/licenses/MIT
@@ -248,6 +248,8 @@
                 $auth.refreshProfile = function() {
                     return ngAAUser.refreshProfile().then(function(response) {
                         $rootScope.$broadcast('profileRefreshed', response);
+
+                        return response;
                     });
                 };
 
@@ -273,7 +275,6 @@
                     //grab authenticated data from state
                     var shouldCheckAuthenticity =
                         toState.data ? toState.data.authenticated : undefined;
-                    console.log(eventOptions);
 
 
                     //if there are permits

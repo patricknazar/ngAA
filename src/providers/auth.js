@@ -64,7 +64,7 @@
                     return ngAAUser.refreshProfile().then(function(response) {
                         $rootScope.$broadcast('profileRefreshed', response);
 
-                        return response
+                        return response;
                     });
                 };
 
